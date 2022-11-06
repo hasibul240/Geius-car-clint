@@ -32,11 +32,13 @@ const Login = () => {
                     body: JSON.stringify({ current_user })
                 })
                     .then(res => res.json())
-                    .then(data => { 
+                    .then(data => {
                         console.log(data)
+                        localStorage.setItem('genius_token', data.token)
+                        form.reset();
+                        navigate(from, { replace: true });
                     })
 
-                // navigate(from, { replace: true });
             })
             .catch(error => console.error(error));
 

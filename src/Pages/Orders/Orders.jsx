@@ -5,12 +5,22 @@ import OrderRow from './OrderRow';
 
 const Orders = () => {
 
-    const { user } = React.useContext(AuthContext);
+    const { user, sign_out } = React.useContext(AuthContext);
     const [orders, set_orders] = React.useState([]);
 
     React.useEffect(() => {
-        fetch(`http://localhost:5000/orders?email=${user?.email}`)
-            .then(res => res.json())
+        fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+            method: 'GET',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('genius_token')}`
+            },
+        })
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    sign_out()
+                }
+                return res.json()
+            })
             .then(data => set_orders(data));
     }, [user?.email]);
 
@@ -54,7 +64,7 @@ const Orders = () => {
                     const new_orders = [...remaning, appruved];
                     set_orders(new_orders);
                 }
-                    console.log(data)
+                console.log(data)
             })
     }
 
