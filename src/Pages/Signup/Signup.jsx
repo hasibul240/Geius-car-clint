@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { set_auth_token } from '../../API/Auth';
 import login from '../../assets/images/login/login.svg';
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 
@@ -18,6 +19,7 @@ const Signup = () => {
             .then(result => {
                 const user = result.user
                 console.log(user);
+                set_auth_token(user);
             })
             .catch(error => console.error(error));
 

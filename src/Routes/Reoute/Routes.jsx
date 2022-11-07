@@ -27,7 +27,7 @@ const router = createBrowserRouter([
             {
                 path: 'chackout/:id',
                 element: <PrivateRoute><ChackOut /></PrivateRoute>,
-                loader:({params})=> fetch(`http://localhost:5000/services/${params.id}`)
+                loader:({params})=> fetch(`https://genius-car-server-seven-self.vercel.app/services/${params.id}`)
             },
             {
                 path: '/orders',

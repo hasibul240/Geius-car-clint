@@ -9,7 +9,7 @@ const Orders = () => {
     const [orders, set_orders] = React.useState([]);
 
     React.useEffect(() => {
-        fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+        fetch(`https://genius-car-server-seven-self.vercel.app/orders?email=${user?.email}`, {
             method: 'GET',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('genius_token')}`
@@ -29,7 +29,7 @@ const Orders = () => {
         const proceed = window.confirm('Are you sure, you want to cancle this order?');
 
         if (proceed) {
-            fetch(`http://localhost:5000/orders/${id}`, {
+            fetch(`https://genius-car-server-seven-self.vercel.app/orders/${id}`, {
                 method: 'DELETE',
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('genius_token')}`
@@ -52,7 +52,7 @@ const Orders = () => {
     };
 
     const handle_stutus = (id) => {
-        fetch(`http://localhost:5000/orders/${id}`, {
+        fetch(`https://genius-car-server-seven-self.vercel.app/orders/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
