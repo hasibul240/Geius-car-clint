@@ -17,12 +17,12 @@ const Orders = () => {
         })
             .then(res => {
                 if (res.status === 401 || res.status === 403) {
-                    sign_out()
+                    return sign_out()
                 }
                 return res.json()
             })
             .then(data => set_orders(data));
-    }, [user?.email]);
+    }, [user?.email, sign_out]);
 
     const handle_delete = (id) => {
 
@@ -30,7 +30,10 @@ const Orders = () => {
 
         if (proceed) {
             fetch(`http://localhost:5000/orders/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('genius_token')}`
+                },
             })
                 .then(res => res.json())
                 .then(data => {
@@ -51,7 +54,10 @@ const Orders = () => {
     const handle_stutus = (id) => {
         fetch(`http://localhost:5000/orders/${id}`, {
             method: 'PATCH',
-            headers: { 'content-type': 'application/json' },
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('genius_token')}`
+            },
             body: JSON.stringify({ status: 'Approved' })
         })
             .then(res => res.json())

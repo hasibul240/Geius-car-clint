@@ -21,7 +21,10 @@ const ChackOut = () => {
 
         fetch('http://localhost:5000/orders', {
             method: 'POST',
-            headers: { 'content-type': 'application/json' },
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('genius_token')}`
+            },
             body: JSON.stringify(order)
         })
             .then(res => res.json())
