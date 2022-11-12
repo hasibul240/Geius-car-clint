@@ -4,12 +4,13 @@ import ServiceCard from './ServiceCard';
 const Services = () => {
 
     const [services, set_services] = React.useState([]);
+    const [isAsc, set_isAsc] = React.useState(true);
 
     React.useEffect(() => {
-        fetch('https://genius-car-server-seven-self.vercel.app/services')
+        fetch(`http://localhost:5000/services?order=${isAsc? 'asc':'desc'}`)
             .then(res => res.json())
             .then(data => set_services(data));
-    }, []);
+    }, [isAsc]);
 
     return (
         <div>
@@ -19,6 +20,7 @@ const Services = () => {
                 <p>
                     the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
                 </p>
+                <button onClick={()=> set_isAsc(!isAsc)} className='btn btn-ghost'>{isAsc ? 'desc': 'asc'}</button>
             </div>
             <div className='grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
                 {
